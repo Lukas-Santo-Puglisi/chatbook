@@ -1,5 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
+/* A transaction is used as a reference between the user and the image created. We make a connection between the payment and the credits for each user. 
+*/
 const TransactionSchema = new Schema({
   createdAt: {
     type: Date,

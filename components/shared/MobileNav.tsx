@@ -68,7 +68,7 @@ const MobileNav = () => {
                 </ul>
               </>
             </SheetContent>
-          </Sheet>
+          </Sheet>    
         </SignedIn> 
        
         <SignedOut>
