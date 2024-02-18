@@ -1,9 +1,7 @@
 "use server"
 
-/* Server Actions are asynchronous functions that are executed on the server. They can be used in Server and Client Components to handle form submissions and data mutations in Next.js applications. Here we implement CRUD for user model. All functions within the file will be marked as Server Actions that can be reused in both Client and Server Components. Server Actions integrate with the Next.js caching and revalidation architecture. When an action is invoked, Next.js can return both the updated UI and new data in a single server roundtrip. Behind the scenes, actions use the POST method, and only this HTTP method can invoke them. Server actions are THE alternative to API routes.
+/* Server Actions are asynchronous functions that are executed on the server. They can be used in Server and Client Components to handle form submissions and data mutations in Next.js applications. Here we implement CRUD for user model. All functions within the file will be marked as Server Actions that can be reused in both Client and Server Components. Server Actions integrate with the Next.js caching and revalidation architecture. When an action is invoked, Next.js can return both the updated UI and new data in a single server roundtrip. Behind the scenes, actions use the POST method, and only this HTTP method can invoke them. Server actions are THE alternative to API routes. We have to connect to the database before avery CRUD call because the connection does not persist.
 */ 
-
-"use server";
 
 import { revalidatePath } from "next/cache";
 
