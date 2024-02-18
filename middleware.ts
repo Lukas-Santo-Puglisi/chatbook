@@ -1,6 +1,8 @@
 import { authMiddleware } from "@clerk/nextjs";
  
 export default authMiddleware({
+  //clerk will send events to this api endpoint to tell us about user creation. 
+  publicRoutes: ['/api/webhooks/clerk']
 });
  
 export const config = {
