@@ -1,0 +1,99 @@
+"use server"
+
+/* Server Actions are asynchronous functions that are executed on the server. They can be used in Server and Client Components to handle form submissions and data mutations in Next.js applications. Here we implement CRUD for user model. All functions within the file will be marked as Server Actions that can be reused in both Client and Server Components. Server Actions integrate with the Next.js caching and revalidation architecture. When an action is invoked, Next.js can return both the updated UI and new data in a single server roundtrip. Behind the scenes, actions use the POST method, and only this HTTP method can invoke them. Server actions are THE alternative to API routes.
+*/ 
+
+"use server";
+
+import { revalidatePath } from "next/cache";
+
+import User from "../database/models/user.model";
+import { connectToDatabase } from "../database/mongoose";
+import { handleError } from "../utils";
+
+// CREATE
+export async function createUser(user: CreateUserParams) {
+  try {
+    await connectToDatabase();
+
+    const newUser = await User.create(user);
+
+    return JSON.parse(JSON.stringify(newUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// READ
+export async function getUserById(userId: string) {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) throw new Error("User not found");
+
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// UPDATE
+export async function updateUser(clerkId: string, user: UpdateUserParams) {
+  try {
+    await connectToDatabase();
+
+    const updatedUser = await User.findOneAndUpdate({ clerkId }, user, {
+      new: true,
+    });
+
+    if (!updatedUser) throw new Error("User update failed");
+    
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// DELETE
+export async function deleteUser(clerkId: string) {
+  try {
+    await connectToDatabase();
+
+    // Find user to delete
+    const userToDelete = await User.findOne({ clerkId });
+
+    if (!userToDelete) {
+      throw new Error("User not found");
+    }
+
+    // Delete user
+    // revalidatePath allows to purge cached data on-demand for a specific path.
+    const deletedUser = await User.findByIdAndDelete(userToDelete._id);
+    revalidatePath("/");
+
+    return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// USE CREDITS
+export async function updateCredits(userId: string, creditFee: number) {
+  try {
+    await connectToDatabase();
+
+    const updatedUserCredits = await User.findOneAndUpdate(
+      { _id: userId },
+      { $inc: { creditBalance: creditFee }},
+      { new: true }
+    )
+
+    if(!updatedUserCredits) throw new Error("User credits update failed");
+
+    return JSON.parse(JSON.stringify(updatedUserCredits));
+  } catch (error) {
+    handleError(error);
+  }
+}
