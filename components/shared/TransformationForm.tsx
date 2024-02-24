@@ -28,6 +28,7 @@ import { CustomField } from "./CustomField"
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
 import { set } from "mongoose"
 import { updateCredits } from "@/lib/actions/user.actions"
+import MediaUploader from "./MediaUploader"
 
 export const formSchema = z.object({
   title : z.string(),
@@ -165,15 +166,29 @@ const TransformationForm = ( {action, data=null, type, userId, creditBalance, co
             )}
           </div>
         )}
-          <div className="gap-4 flex flex-col">
+
+        <div className="media-uploader-field">
+          < CustomField
+            control = {form.control}
+            //publicId of the image that we will upload
+            name = "publicId"
+            className="flex size-full flex-col"
+            render={({ field }) => (
+              < MediaUploader /> 
+            )}  
+          
+          />
+        </div>
+
+        <div className="gap-4 flex flex-col">
           <Button type="button" className="submit-button capitalize" disabled={isTransforming || newTransformation===null}  onClick={onTransformHandler} >
             { isTransforming ? "Transforming..." : "Apply Transformation"}
           </Button>
           <Button type="submit" className="submit-button capitalize" disabled={isSubmitting}  >
             {isSubmitting ? "Submitting..." : "Save image"}
           </Button>
-          </div>
-          </form>
+        </div>
+      </form>
          
     </Form>
   )
