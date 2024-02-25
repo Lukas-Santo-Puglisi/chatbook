@@ -29,6 +29,7 @@ import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
 import { set } from "mongoose"
 import { updateCredits } from "@/lib/actions/user.actions"
 import MediaUploader from "./MediaUploader"
+import TransformedImage from "./TransformedImage"
 
 export const formSchema = z.object({
   title : z.string(),
@@ -79,14 +80,13 @@ const TransformationForm = ( {action, data=null, type, userId, creditBalance, co
     setNewTransformation(transformationType.config);
     return onChangeField(value);
   }
-  // TODO: Return to update credits
   function onTransformHandler(): void {
     setIsTransforming(true);
     startTransition(() => {
       setTransformationConfig(deepMergeObjects(newTransformation, transformationConfig));
       setNewTransformation(null);
-      startTransition(() => {
-        // await updateCredits(userId, creditFee);
+      startTransition( async () => {
+         await updateCredits(userId, creditFee);
       })
     })
   }
@@ -180,11 +180,19 @@ const TransformationForm = ( {action, data=null, type, userId, creditBalance, co
                 publicId = {field.value}
                 image={image}
                 type={type}
-                
               /> 
             )}  
-          
           />
+          <TransformedImage
+            image={image}
+            type={type}
+            title={form.getValues('title')}
+            isTransforming={isTransforming}
+            setIsTransforming={setIsTransforming}
+            transformationConfig={transformationConfig}
+          >
+
+          </TransformedImage>
         </div>
 
         <div className="gap-4 flex flex-col">

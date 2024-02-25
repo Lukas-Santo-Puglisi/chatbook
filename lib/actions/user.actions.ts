@@ -84,6 +84,7 @@ export async function updateCredits(userId: string, creditFee: number) {
 
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: userId },
+      //increment credit balance by credit fee which is a negative number
       { $inc: { creditBalance: creditFee }},
       { new: true }
     )
