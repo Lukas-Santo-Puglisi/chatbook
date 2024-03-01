@@ -89,7 +89,7 @@ declare type CreateUserParams = {
   };
   
   declare type TransformationTypeKey =
-    | "restore"
+    | "restore"     
     | "fill"
     | "remove"
     | "recolor"
