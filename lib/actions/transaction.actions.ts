@@ -6,7 +6,7 @@ import { connectToDatabase } from '../database/mongoose';
 import Transaction from '../database/models/transaction.model';
 import { updateCredits } from './user.actions';
 import { handleError } from '../utils';
-//buy credits
+//process checkout and payment with stripe
 // ! is the non-null-assertion-operator of typescript. tells compiler that this variable is guaranteed to be non-null
 export async function checkoutCredits(transaction: CheckoutTransactionParams){
 
@@ -18,6 +18,7 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams){
             {
                 price_data: {
                     currency: 'usd',
+                    unit_amount: amount,
                     product_data: {
                         name: 'transaction.plan',
                     },
@@ -38,6 +39,7 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams){
     redirect(session.url!);
 }
 
+// creates transaction record in the database and attribute the credits to the user.
 export async function createTransaction(transaction : CreateTransactionParams){
     try{
         await connectToDatabase();
