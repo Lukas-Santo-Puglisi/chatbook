@@ -12,8 +12,8 @@ const IBMPlex = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ChatBook",
-  description: "Share your AI generated content with the world. This is a social media platform and global marketplace for AI generated content.",
+  title: "Chats in Chains",
+  description: "Share your AI generated content with the world. This is a social media platform and global marketplace for AI generated content. You can also modify our AI images here.",
 };
 
 export default function RootLayout({

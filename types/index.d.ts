@@ -127,6 +127,12 @@ declare type CreateUserParams = {
     config?: Transformations | null;
   };
   
+  declare type PostParamProps = {
+    params: {
+      postId: number;
+    };
+  }
+  
   declare type TransformedImageProps = {
     image: any;
     type: string;
