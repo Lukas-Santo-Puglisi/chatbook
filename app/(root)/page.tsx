@@ -13,7 +13,7 @@ const Home = async ({searchParams}: SearchParamProps) => {
     <>
       <section className="home">
         <h1 className="home-heading">
-          Share your AI Chats on this Marketplace
+          Share your AI Chats and Images on this Marketplace
         </h1>
       
       <ul className="flex-center w-full gap-20">
@@ -38,6 +38,9 @@ const Home = async ({searchParams}: SearchParamProps) => {
         ))}
       </ul>
       </section>
+      <p className="mt-10 text-center text-lg text-black home-subheading">
+          Explore the latest AI generated images and chats from the community.
+        </p>
       <section className="sm:mt-12 ">
         < Collection 
           hasSearch={true}
