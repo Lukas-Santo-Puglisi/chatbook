@@ -30,6 +30,11 @@ export const navLinks = [
       icon: "/assets/icons/camera.svg",
     },
     {
+      label: "Create Prompt",
+      route: "/create-prompt",
+      icon: "/assets/icons/createPost.png",
+    },
+    {
       label: "Profile",
       route: "/profile",
       icon: "/assets/icons/profile.svg",

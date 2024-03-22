@@ -6,6 +6,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
+import { useState } from 'react'
+import { useEffect } from 'react'
+
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -20,7 +23,7 @@ const Sidebar = () => {
         <nav className="sidebar-nav">
           <SignedIn>
             <ul className="sidebar-nav_elements">
-              {navLinks.slice(0, 6).map((link) => {
+              {navLinks.slice(0, 7).map((link) => {
                 const isActive = link.route === pathname
 
                 return (
@@ -39,12 +42,15 @@ const Sidebar = () => {
                     </Link>
                   </li>
                 )
-              })}
+              })} 
+        
+              
+              
               </ul>
 
-
+              
             <ul className="sidebar-nav_elements">
-              {navLinks.slice(6).map((link) => {
+              {navLinks.slice(7).map((link) => {
                 const isActive = link.route === pathname
 
                 return (
@@ -69,6 +75,7 @@ const Sidebar = () => {
                 <UserButton afterSignOutUrl='/' showName />
               </li>
             </ul>
+            
           </SignedIn>
 
           <SignedOut>

@@ -1,6 +1,8 @@
 import { navLinks } from '@/constants'
 import Link from 'next/link'
 import React from 'react'
+import Feed from '@/components/shared/Feed'
+
 import Image from 'next/image'
 import { Collection } from '@/components/shared/Collection'
 import { getAllImages } from '@/lib/actions/image.actions'
@@ -51,6 +53,7 @@ const Home = async ({searchParams}: SearchParamProps) => {
         
         />
       </section> 
+      <Feed />
     </>
   )
 }
